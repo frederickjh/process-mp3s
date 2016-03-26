@@ -42,3 +42,20 @@ process-mp3s.sh 2016-03-25
 * It will create a combined church service mp3 for upload excluding the tracks entered for exclusion and place it in the **uploadsfolder**.
 * It will copy the sermon to the **uploadsfolder** and rename it.
 
+## Gotchas
+While I have tried to make this script as portable as possible, it does have some hard coded values that I have not taken the time to make portable.
+
+The **parsefilename** filename function is based on my churches file-naming convention. Which is:
+yyyy-mm-dd - pastor's name - ## - title.p3
+
+Where:
+
+* yyyy = 4 digit year
+* mm = 2 digit month
+* dd = 2 digit day of month
+* pastor's name = pastor's name (artist)
+* \## = 2 digit track number
+* title = track title
+
+This information is parse to be placed in the mp3 id3 tags. If you do not use the file-naming convention above this script may not work for you.
+
