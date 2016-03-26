@@ -47,7 +47,7 @@ While I have tried to make this script as portable as possible, it does have som
 
 The **parsefilename** filename function is based on my churches file-naming convention. Which is:
 
-yyyy-mm-dd - pastor's name - ## - title.p3
+yyyy-mm-dd - pastor's name - ## - title.mp3
 
 Where:
 
