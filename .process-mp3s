@@ -1,0 +1,29 @@
+### Configuration for process-mp3s.sh
+### process-mp3s.sh sources this file at $HOME/.process-mp3s to get its configuration.
+## Copy this file to ~/ and edit to your needs.
+
+# Image to use for all ID3 tags
+# Apple devices (and others) will use an image up to 1400 x 1400 pixels. 
+# Images smaller than this will be zoomed and may appear fuzzy, so it is
+# adviseable to have square 1400 x 1400 pixel image for best results.
+id3image="$HOME/Pictures/church-logo.jpg"
+
+# Folder where the combined MP3 of the church services for local distribution will be placed
+churchservicesfolder="$HOME/churchservices/"
+
+# Folder where the sermon and the combined MP3 of the church service without the excluded tracks, to upload to the Internet will be placed.
+uploadsfolder="$HOME/uploads/"
+
+# ID3 tags that we set on the individual mp3 track files
+id3artist="Name_of_Church"
+
+# ID3 tags that we set on all mp3 files
+# We set the publisher to the same as the artist
+id3publisher="$id3artist"
+# We set the copyright to the copyright symbol followed by the artist.
+id3copyright="© $id3artist"
+# This is your churches website. First a description then a colon (:) Then the website address starting with http://
+id3url="Name_of_Church Town Website:http://example.com"
+
+# ID3 tages set on combined MP3 files
+id3combineartist="Name_of_Church Town Church Service"
