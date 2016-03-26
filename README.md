@@ -46,6 +46,7 @@ process-mp3s.sh 2016-03-25
 While I have tried to make this script as portable as possible, it does have some hard coded values that I have not taken the time to make portable.
 
 The **parsefilename** filename function is based on my churches file-naming convention. Which is:
+
 yyyy-mm-dd - pastor's name - ## - title.p3
 
 Where:
