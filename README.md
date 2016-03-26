@@ -1,11 +1,11 @@
 # process-mp3s
-Script to process church services mp3 files after recording with Audio Grabber to set tags and also combine the tracks back into one church service mp3 file.
+Script to process church services mp3 files after recording with [Audio Grabber](http://www.audiograbber.org/) to set tags and also combine the tracks back into one church service mp3 file.
 
 ## Usage case
 
-The church I attend uses Audio Grabber to record church services in separate tracks for each section of the church service. Before we had only uploaded the sermon to the churches website. The request came in asking for full church services to be upload. However this was approved with the requirement that no testimonies be included.
+The church I attend uses [Audio Grabber](http://www.audiograbber.org/) to record church services in separate tracks for each section of the church service. Before we had only uploaded the sermons to the church's website. A request came in asking for full church services to be upload. However this was approved by the church board with the requirement that no testimonies be included.
 
-This script was born from that request. I also use this opportunity to better set the mp3 id3 tags on the mp3 files also including the church's logo as the image for the mp3 files.
+This script was born from that request and requirements. I also use this opportunity to better set the mp3 id3 tags on the mp3 files also including the church's logo as the image for the mp3 files.
 
 ## Dependencies
 
@@ -41,3 +41,4 @@ process-mp3s.sh 2016-03-25
 * It will create a combined church service mp3 with all tracks and place it in the **churchservicesfolder**.
 * It will create a combined church service mp3 for upload excluding the tracks entered for exclusion and place it in the **uploadsfolder**.
 * It will copy the sermon to the **uploadsfolder** and rename it.
+
