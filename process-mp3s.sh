@@ -119,20 +119,19 @@ function doesimagefileexist(){
     until [ "$continue" = "yes" ]; do
       echo -e "${yellow}>>> ${NC}${red}Image file ${id3image} to add to mp3 id3 tag does not exist! ${yellow}>>> ${NC}"
       echo -e "${yellow}>>> ${NC}${red}Please replace ${id3image} so it will be addded to the mp3's id3 tags. ${yellow}>>> ${NC}"
-      echo -e "${yellow}>>> ${NC}Do you want to continue and add the tags without the image file? ${id3image} ${yellow}>>> ${NC} ${red}[N/y]${NC} "
+      echo -ne "${yellow}>>> ${NC}Do you want to continue and add the tags without the image file? ${id3image} ${yellow}>>> ${NC} ${red}[N/y]${NC} "
       read -r response
       response=${response,,}    # tolower
         if [[ $response !=  "y" && $response != "Y"  && $response != "yes" && $response != "Yes" ]]; then
            echo -e "${red}User aborted script! Now exiting!${NC}"
           exit
         else
-          addimagetag=""
+          addimagetag="no"
           continue=yes
         fi
     done
   else
-    # We include space in front of the $addimagetag, in quotes in our functions to set tags otherwise we have file not found errors when the variable is empty.
-    addimagetag="--add-image=${id3image}:FRONT_COVER:Regichile Logo"
+    addimagetag="yes"
   fi
 }
 
@@ -184,8 +183,12 @@ function makeid3tags(){
 function setid3tags(){
   # Remove URL tag  and embedded images from mp3s so we can then add our own.
   eyeD3 --set-url-frame="WXXX:" --remove-images "${unsanitizedfilename}" 
-  # Space in quotes between $id3url and $addimagetag is to allow the addimagetag to work even if it is empty.
-  eyeD3 -a "${id3artist}" -A "${id3album}" -t "${id3title}" -n ${id3track} -p "${id3publisher}" --set-text-frame="TCOP:${id3copyright}" -Y ${id3year} --set-user-url-frame="${id3url}"" ""${addimagetag}" "${unsanitizedfilename}"
+  # Check if we are including the image tag or not.
+  if [ "${addimagetag}" = "yes" ]; then
+  eyeD3 -a "${id3artist}" -A "${id3album}" -t "${id3title}" -n ${id3track} -p "${id3publisher}" --set-text-frame="TCOP:${id3copyright}" -Y ${id3year} --set-user-url-frame="${id3url}" "--add-image=${id3image}:FRONT_COVER:Regichile Logo" "${unsanitizedfilename}"
+  elif [ "${addimagetag}" = "no" ]; then
+    eyeD3 -a "${id3artist}" -A "${id3album}" -t "${id3title}" -n ${id3track} -p "${id3publisher}" --set-text-frame="TCOP:${id3copyright}" -Y ${id3year} --set-user-url-frame="${id3url}" "${unsanitizedfilename}"
+  fi
 }
 
 function findtracksnottoincludearrayindex(){
@@ -270,8 +273,12 @@ function makecombinemp3id3tags(){
 function renameandtagcombinemp3(){
   # Remove URL tag from mp3wrap so we can then add our own.
   eyeD3 --set-url-frame="WXXX:" "${tempmp3file}"
-  # Space in quotes between $id3url and $addimagetag is to allow the addimagetag to work even if it is empty.
-  eyeD3 -a "${id3combineartist}" -A "${id3combinealbum}" -t "${id3combinetitle}" -n ${id3combinetrack} -p "${id3publisher}" --set-text-frame="TCOP:${id3copyright}" -Y ${id3combineyear} --set-user-url-frame="${id3url}"" ""${addimagetag}" "${tempmp3file}"
+  # Check if we are including the image tag or not.
+  if [ "${addimagetag}" = "yes" ]; then
+  eyeD3 -a "${id3combineartist}" -A "${id3combinealbum}" -t "${id3combinetitle}" -n ${id3combinetrack} -p "${id3publisher}" --set-text-frame="TCOP:${id3copyright}" -Y ${id3combineyear} --set-user-url-frame="${id3url}" "--add-image=${id3image}:FRONT_COVER:Regichile Logo" "${tempmp3file}"
+  elif [ "${addimagetag}" = "no" ]; then
+  eyeD3 -a "${id3combineartist}" -A "${id3combinealbum}" -t "${id3combinetitle}" -n ${id3combinetrack} -p "${id3publisher}" --set-text-frame="TCOP:${id3copyright}" -Y ${id3combineyear} --set-user-url-frame="${id3url}" "${tempmp3file}"
+  fi
   churchservicefilename="${sermonyear}-${sermonmonth}-${sermonday} - ${sermonartist} - ${sermontitle} - Gottesdienst"
 echo -e "${red}"
   if [ -n $1 ] && [ "$1" = "internet" ]; then
