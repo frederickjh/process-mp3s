@@ -146,7 +146,18 @@ fileArray=($(find "${mp3filesfolder}" -type f -regex '.*.mp3' ! -name '* - Gotte
 # restore it 
 IFS=$OLDIFS
 }
+function whatsinthearray(){
+echo -e "${yellow}=========================================================================${NC}"
+# get length of an array
+tLen=${#fileArray[@]}
 
+for (( i=0; i<${tLen}; i++ ));
+do
+arrayitem="${fileArray[$i]}"
+echo "$arrayitem"
+done
+echo -e "${yellow}=========================================================================${NC}"
+}
 # Parses the mp3 filenames to get the info contain therein. 
 function parsefilename(){
 # get length of an array
@@ -331,19 +342,13 @@ function testechosermon(){
   echo "Day is: $sermonday"
   echo "Sermon file is: $sermonfile"
 }
-function whatsinthearray(){
-for (( i=0; i<${tLen}; i++ ));
-do
-arrayitem="${fileArray[$i]}"
-echo "Array item # $i - $arrayitem"
-done
-}
 #############  MAIN PROGRAM #################
 loadcolor
 checkdependencies
 getconfiguration
 doesimagefileexist
 loadfilenamesinarray
+whatsinthearray
 whattrackisthesermon
 whattracksshouldnotbeincluded
 parsefilename
