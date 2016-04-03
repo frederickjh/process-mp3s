@@ -34,6 +34,15 @@ for dependency in $dependencies;
     exit $missing
   fi 
 }
+# Check if the folders we want to place files into exist, if not create them.
+function checkiffoldersexist(){
+	if [ ! -d ${churchservicesfolder} ]; then
+		mkdir -p ${churchservicesfolder}
+	fi
+	if [ ! -d ${uploadsfolder} ]; then
+		mkdir -p ${uploadsfolder}
+	fi
+}
 function loadcolor(){
 # Colors  http://wiki.bash-hackers.org/snipplets/add_color_to_your_scripts
 # More info about colors in bash http://misc.flogisoft.com/bash/tip_colors_and_formatting
@@ -291,14 +300,12 @@ function renameandtagcombinemp3(){
   eyeD3 -a "${id3combineartist}" -A "${id3combinealbum}" -t "${id3combinetitle}" -n ${id3combinetrack} -p "${id3publisher}" --set-text-frame="TCOP:${id3copyright}" -Y ${id3combineyear} --set-user-url-frame="${id3url}" "${tempmp3file}"
   fi
   churchservicefilename="${sermonyear}-${sermonmonth}-${sermonday} - ${sermonartist} - ${sermontitle} - Gottesdienst"
-echo -e "${red}"
   if [ -n $1 ] && [ "$1" = "internet" ]; then
     # underscore at end of name means Internet version and Zeugnis have not been included.
     mv "$tempmp3file" "${uploadsfolder}${churchservicefilename}_.mp3" 
   else
     mv "$tempmp3file" "${churchservicesfolder}${churchservicefilename}.mp3"
   fi
-echo -e "${NC}"
 }
 function copyfileforupload(){
   # Copy and rename the sermon to the uploadsfolder
@@ -346,6 +353,7 @@ function testechosermon(){
 loadcolor
 checkdependencies
 getconfiguration
+checkiffoldersexist
 doesimagefileexist
 loadfilenamesinarray
 whatsinthearray
