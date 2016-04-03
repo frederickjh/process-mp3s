@@ -291,20 +291,21 @@ function makecombinemp3id3tags(){
   id3combinetrack="0"
 }
 function renameandtagcombinemp3(){
-  # Remove URL tag from mp3wrap so we can then add our own.
-  eyeD3 --set-url-frame="WXXX:" "${tempmp3file}"
-  # Check if we are including the image tag or not.
-  if [ "${addimagetag}" = "yes" ]; then
-  eyeD3 -a "${id3combineartist}" -A "${id3combinealbum}" -t "${id3combinetitle}" -n ${id3combinetrack} -p "${id3publisher}" --set-text-frame="TCOP:${id3copyright}" -Y ${id3combineyear} --set-user-url-frame="${id3url}" "--add-image=${id3image}:FRONT_COVER:Regichile Logo" "${tempmp3file}"
-  elif [ "${addimagetag}" = "no" ]; then
-  eyeD3 -a "${id3combineartist}" -A "${id3combinealbum}" -t "${id3combinetitle}" -n ${id3combinetrack} -p "${id3publisher}" --set-text-frame="TCOP:${id3copyright}" -Y ${id3combineyear} --set-user-url-frame="${id3url}" "${tempmp3file}"
-  fi
   churchservicefilename="${sermonyear}-${sermonmonth}-${sermonday} - ${sermonartist} - ${sermontitle} - Gottesdienst"
   if [ -n $1 ] && [ "$1" = "internet" ]; then
     # underscore at end of name means Internet version and Zeugnis have not been included.
-    mv "$tempmp3file" "${uploadsfolder}${churchservicefilename}_.mp3" 
+    combinedmp3file="${uploadsfolder}${churchservicefilename}_.mp3" 
   else
-    mv "$tempmp3file" "${churchservicesfolder}${churchservicefilename}.mp3"
+    combinedmp3file="${churchservicesfolder}${churchservicefilename}.mp3"
+  fi
+  mv "${tempmp3file}" "${combinedmp3file}"
+  # Remove URL tag from mp3wrap so we can then add our own.
+  eyeD3 --set-url-frame="WXXX:" "${combinedmp3file}"
+  # Check if we are including the image tag or not.
+  if [ "${addimagetag}" = "yes" ]; then
+  eyeD3 -a "${id3combineartist}" -A "${id3combinealbum}" -t "${id3combinetitle}" -n ${id3combinetrack} -p "${id3publisher}" --set-text-frame="TCOP:${id3copyright}" -Y ${id3combineyear} --set-user-url-frame="${id3url}" "--add-image=${id3image}:FRONT_COVER:Regichile Logo" "${combinedmp3file}"
+  elif [ "${addimagetag}" = "no" ]; then
+  eyeD3 -a "${id3combineartist}" -A "${id3combinealbum}" -t "${id3combinetitle}" -n ${id3combinetrack} -p "${id3publisher}" --set-text-frame="TCOP:${id3copyright}" -Y ${id3combineyear} --set-user-url-frame="${id3url}" "${combinedmp3file}"
   fi
 }
 function copyfileforupload(){
