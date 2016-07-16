@@ -20,6 +20,9 @@ mp3filesfolder="$1"
 dependencies="mp3wrap eyeD3 sed find"
 # Temporary mp3 wrap filename to use. We will rename it to get rid of the MP3WRAP in the filename.
 tempmp3file="temp_MP3WRAP.mp3"
+# Symbol to replace with a dash(-) in id3 tags harvested from the filenames.
+# See function dashsymbolreplacement() below for more information. Be careful what you use for a symbol.
+dashreplacementsymbol="*"
 
 # get configuration
 function getconfiguration(){
@@ -222,9 +225,26 @@ do
   unset filenamearraysplitbydashes[4]
   title=$(trim ${filenamearraysplitbydashes[@]})
   IFS=$OLDIFS
+  dashsymbolreplacement
   makeid3tags
   setid3tags
 done
+}
+### Dash replacement feature
+# Since we use dashes to divide up the file name
+# in to id3 tags we cannot use dashes in the id3 tags, otherwise it messes
+# up our tags. To allow dashes we allow a replacement symbol to be entered
+# which we will replace with a dash in this function after the tag information
+# has already been split out.
+function dashsymbolreplacement(){
+  for arg in title artist track; do
+    eval value=\$$arg
+# If you're relying on bash/ksh/zsh, you can make the replacements inside the shell with the ${VARIABLE//PATTERN/REPLACEMENT} construct.
+    value=${value//${dashreplacementsymbol}/-}
+    eval $arg=\$value
+  done
+# sed replacement code not used trying bash replacement above.
+# valuewithdash=$(echo "$" | sed "s/${dashreplacementsymbol}/-/g")
 }
 # Takes the info we have collected and rearranges it to set the id3 tags the way we want.
 function makeid3tags(){
