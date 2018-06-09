@@ -6,7 +6,7 @@ PS4=':${LINENO} + '
 source gettext.sh
 #Set get text variables
 export TEXTDOMAIN=$0 # Name of this script
-export TEXTDOMAINDIR=$(dirname "$(readlink -f "$0")") # Location of this script
+export TEXTDOMAINDIR=$(dirname "$(readlink -f "$0")")/locale # Location of this script
 
 # Where are the mp3 to process?
 mp3filesfolder="$1"
