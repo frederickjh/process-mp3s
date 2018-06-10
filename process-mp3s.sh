@@ -5,7 +5,7 @@ PS4=':${LINENO} + '
 # Add gettext.sh functionality to the text translation capablities to the script.
 source gettext.sh
 #Set get text variables
-export TEXTDOMAIN=$0 # Name of this script
+export TEXTDOMAIN=$(basename $0) # Name of this script
 export TEXTDOMAINDIR=$(dirname "$(readlink -f "$0")")/locale # Location of this script
 
 # Where are the mp3 to process?
