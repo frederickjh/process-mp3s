@@ -74,13 +74,11 @@ function whattrackisthesermon(){
   fi
  done
  # If a single digit is entered add a zero in front of it.
- case $sermontrack in
-    [0-9])
-      sermontrack="0$sermontrack"
-    ;;
-    *)
-    ;;
- esac
+ if [ ${#sermontrack} = 1 ]; then
+   sermontrack="0$sermontrack"
+ else
+   sermontrack="$sermontrack"
+ fi
 }
 function whattracksshouldnotbeincluded(){
   echo -ne "${yellow}>>>${NC} Please enter the tracks that should ${red}not${NC} be included in the mp3 of the whole service that will be uploaded to the website separated by spaces. ${yellow}>>> ${NC}"
@@ -101,13 +99,11 @@ done
 # use for loop read all filenames
 for (( d=0; d<${dLen}; d++ ));  
 do
-    case $d in
-    [0-9])
+   if [ ${#dontincludetracks[$d]} = 1 ]; then
      dontincludetracks[$d]="0${dontincludetracks[$d]}"
-    ;;
-    *)
-    ;;
- esac
+   else
+     dontincludetracks[$d]="${dontincludetracks[$d]}"
+   fi
 done
 }
 
