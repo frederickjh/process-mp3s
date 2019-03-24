@@ -1,0 +1,168 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-03-24 22:33+0100\n"
+"PO-Revision-Date: 2019-03-24 22:41+0100\n"
+"Last-Translator: Frederick Henderson <frederickjh@henderson-meier.org>\n"
+"Language-Team: \n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.7.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: process-mp3s.sh:25
+#, sh-format
+msgid "Configuration file"
+msgstr "Konfigurationsdatei"
+
+#: process-mp3s.sh:25
+#, sh-format
+msgid "not found!  Aborting!"
+msgstr "nicht gefunden  Abbrechen!"
+
+#: process-mp3s.sh:34
+#, sh-format
+msgid "I require "
+msgstr "Ich benötige"
+
+#: process-mp3s.sh:34
+#, sh-format
+msgid "but it's not installed."
+msgstr "aber es ist nicht installiert."
+
+#: process-mp3s.sh:39
+#, sh-format
+msgid "dependencies are missing aborting!"
+msgstr "Abhängigkeiten fehlen Abbruch!"
+
+#: process-mp3s.sh:47
+#, sh-format
+msgid "This version of eyeD3, "
+msgstr "Diese Version von eyeD3,"
+
+#: process-mp3s.sh:47
+#, sh-format
+msgid " is higher than the tested version of "
+msgstr " ist höher als die getestete Version von"
+
+#: process-mp3s.sh:48
+#, sh-format
+msgid "The release notes for "
+msgstr "Die Release-Informationen für "
+
+#: process-mp3s.sh:48
+#, sh-format
+msgid " state the following:"
+msgstr " wird Folgendes angegeben:"
+
+#: process-mp3s.sh:49
+#, sh-format
+msgid ""
+"This release is NOT API compatible with 0.6.x. The majority of the command "
+"line interface has been preserved although many options have either changed "
+"or been removed."
+msgstr ""
+"Diese Version ist NICHT API-kompatibel mit 0.6.x. Die Mehrheit der "
+"Befehlszeilenschnittstelle wurde beibehalten, obwohl viele Optionen "
+"entweder geändert oder entfernt wurden."
+
+#: process-mp3s.sh:78
+#, sh-format
+msgid "Error:"
+msgstr "Fehler:"
+
+#: process-mp3s.sh:78
+#, sh-format
+msgid "is not a number"
+msgstr "ist keine Zahl"
+
+#: process-mp3s.sh:85
+#, sh-format
+msgid "Please enter the track number of the sermon."
+msgstr "Bitte geben Sie die Stücknummer der Predigt ein."
+
+#: process-mp3s.sh:100
+#, sh-format
+msgid ""
+"Please enter the tracks that should NOT be included in the mp3 of the whole "
+"service that will be uploaded to the website separated by spaces."
+msgstr ""
+"Bitte geben Sie die Tracks ein, die NICHT im mp3 des gesamten Dienstes "
+"enthalten sein sollen, der durch Leerzeichen getrennt auf die Website "
+"hochgeladen wird."
+
+#: process-mp3s.sh:110
+#, sh-format
+msgid "Aborting try again with track numbers!"
+msgstr "Abgebrochener Versuch, versuchen sie mit Stücknummern!"
+
+#: process-mp3s.sh:142
+#, sh-format
+msgid "Image file"
+msgstr "Bilddatei"
+
+#: process-mp3s.sh:142
+#, sh-format
+msgid "to add to mp3 id3 tag does not exist!"
+msgstr "zum mp3 id3-Tag hinzuzufügen existiert nicht!"
+
+#: process-mp3s.sh:143
+#, sh-format
+msgid "Please replace"
+msgstr "Bitte ersetzen"
+
+#: process-mp3s.sh:143
+#, sh-format
+msgid "so it will be addded to the mp3's id3 tags."
+msgstr "also wird es zu den id3-Tags des mp3 hinzugefügt."
+
+#: process-mp3s.sh:144
+#, sh-format
+msgid "Do you want to continue and add the tags without the image file?"
+msgstr "Möchten Sie fortfahren und die Tags ohne die Bilddatei hinzufügen?"
+
+#: process-mp3s.sh:148
+#, sh-format
+msgid "User aborted script! Now exiting!"
+msgstr "Benutzer hat das Skript abgebrochen! Das Programm wird nun beendet!"
+
+#: process-mp3s.sh:292
+#, sh-format
+msgid "Combining MP3s for upload to the Internet."
+msgstr "Ich kombiniere jetzt die MP3s für den Upload ins Internet."
+
+#: process-mp3s.sh:294
+#, sh-format
+msgid "Combining MP3s for copying to USB devices locally."
+msgstr "Ich kombiniere jetzt MP3s zum lokalen Kopieren auf USB-Geräte."
+
+#: process-mp3s.sh:331
+#, sh-format
+msgid "The combined church service MP3 file has been placed in"
+msgstr "Die kombinierte MP3-Datei des Gottesdienstes wurde  abgelegt in"
+
+#: process-mp3s.sh:332
+#, sh-format
+msgid ""
+"The sermon and combined service MP3 files for uploading have been copied to"
+msgstr ""
+"Die Predigt und der kombinierte Gottesdienst MP3-Dateien zum Hochladen "
+"wurden kopiert nach"
+
+#: process-mp3s.sh:334
+#, sh-format
+msgid "All done processing the MP3 files in"
+msgstr "Alles fertig mit der Verarbeitung der MP3-Dateien in"
+
+#: process-mp3s.sh:335
+#, sh-format
+msgid "Don't forget to upload the created files!"
+msgstr "Vergessen Sie nicht, die erstellten Dateien hochzuladen!"
