@@ -52,12 +52,12 @@ fi
 }
 # Check if the folders we want to place files into exist, if not create them.
 function checkiffoldersexist(){
-	if [ ! -d ${churchservicesfolder} ]; then
-		mkdir -p ${churchservicesfolder}
-	fi
-	if [ ! -d ${uploadsfolder} ]; then
-		mkdir -p ${uploadsfolder}
-	fi
+  if [ ! -d ${churchservicesfolder} ]; then
+    mkdir -p ${churchservicesfolder}
+  fi
+  if [ ! -d ${uploadsfolder} ]; then
+    mkdir -p ${uploadsfolder}
+  fi
 }
 function loadcolor(){
 # Colors  http://wiki.bash-hackers.org/snipplets/add_color_to_your_scripts
