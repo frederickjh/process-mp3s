@@ -2,6 +2,12 @@
 PS4=':${LINENO} + '
 #set -x
 
+# Add gettext.sh functionality to the text translation capablities to the script.
+source gettext.sh
+#Set get text variables
+export TEXTDOMAIN=$(basename $0) # Name of this script
+export TEXTDOMAINDIR=$(dirname "$(readlink -f "$0")")/locale # Location of this script
+
 # Where are the mp3 to process?
 mp3filesfolder="$1"
 # failsafe - fall back to current directory
@@ -16,7 +22,7 @@ function getconfiguration(){
 if [ -f "$HOME/.process-mp3s" ]; then
   source $HOME/.process-mp3s
 else
-  echo -e "${red}Configuration file $HOME/.process-mp3s not found!  Aborting!${NC}"
+  echo -e "${red}$(eval_gettext "Configuration file") $HOME/.process-mp3s $(eval_gettext "not found!  Aborting!")${NC}"
 fi
 }
 #Check if we have all the programs we need to do our job.
@@ -25,12 +31,12 @@ missing=0
 for dependency in $dependencies;
   do
     command -v $dependency >/dev/null 2>&1 || {
-      echo -e >&2 "${yellow}I require ${red}$dependency${yellow} but it's not installed.${NC}"
+      echo -e >&2 "${yellow}$(eval_gettext "I require ")${red}$dependency ${yellow}$(eval_gettext "but it's not installed.")${NC}"
       let missing=missing+1
       }
   done
   if [[ $missing -ne 0 ]]; then
-    echo -e "${yellow}***** ${red}$missing dependencies are missing aborting!${yellow} *****${NC}"
+    echo -e "${yellow}***** ${red}$missing $(eval_gettext "dependencies are missing aborting!")${yellow} *****${NC}"
     exit $missing
   fi 
 }
@@ -69,14 +75,14 @@ function isitanumber(){
   bad=0
   re='^[0-9]+$'
   if ! [[ $1 =~ $re ]] ; then
-    echo -e "${red}Error: ${yellow}${1}${red} is not a number${NC}"
+    echo -e "${red}$(eval_gettext "Error:") ${yellow}${1}${red} $(eval_gettext "is not a number")${NC}"
     bad=1
   fi
 }
 function whattrackisthesermon(){
   sermontrack=""
   while [ -z $sermontrack ]; do
-  echo -ne "${yellow}>>>${NC} Please enter the track number of the sermon. ${yellow}>>> ${NC}"
+  echo -ne "${yellow}>>> ${NC}$(eval_gettext "Please enter the track number of the sermon.") ${yellow}>>> ${NC}"
   read -r sermontrack
   isitanumber $sermontrack
   if [ $bad -ne 0 ]; then
@@ -91,7 +97,7 @@ function whattrackisthesermon(){
  fi
 }
 function whattracksshouldnotbeincluded(){
-  echo -ne "${yellow}>>>${NC} Please enter the tracks that should ${red}not${NC} be included in the mp3 of the whole service that will be uploaded to the website separated by spaces. ${yellow}>>> ${NC}"
+  echo -ne "${yellow}>>> ${NC}$(eval_gettext "Please enter the tracks that should NOT be included in the mp3 of the whole service that will be uploaded to the website separated by spaces.") ${yellow}>>> ${NC}"
   read -a dontincludetracks
   
 # get length of an array
@@ -101,7 +107,7 @@ for (( d=0; d<${dLen}; d++ ));
 do
   isitanumber ${dontincludetracks[$d]}
   if [ $bad -ne 0 ]; then
-    echo -e "${red}Aborting try again with track numbers!${NC}"
+    echo -e "${red}$(eval_gettext "Aborting try again with track numbers!")${NC}"
     exit
   fi
 done
@@ -133,13 +139,13 @@ function doesimagefileexist(){
   if [ ! -f "${id3image}" ]; then
     continue="no"
     until [ "$continue" = "yes" ]; do
-      echo -e "${yellow}>>> ${NC}${red}Image file ${id3image} to add to mp3 id3 tag does not exist! ${yellow}>>> ${NC}"
-      echo -e "${yellow}>>> ${NC}${red}Please replace ${id3image} so it will be addded to the mp3's id3 tags. ${yellow}>>> ${NC}"
-      echo -ne "${yellow}>>> ${NC}Do you want to continue and add the tags without the image file? ${id3image} ${yellow}>>> ${NC} ${red}[N/y]${NC} "
+      echo -e "${yellow}>>> ${NC}${red}$(eval_gettext "Image file") ${id3image} $(eval_gettext "to add to mp3 id3 tag does not exist!") ${yellow}>>> ${NC}"
+      echo -e "${yellow}>>> ${NC}${red}$(eval_gettext "Please replace") ${id3image} $(eval_gettext "so it will be addded to the mp3's id3 tags.") ${yellow}>>> ${NC}"
+      echo -ne "${yellow}>>> ${NC}$(eval_gettext "Do you want to continue and add the tags without the image file?") ${id3image} ${yellow}>>> ${NC} ${red}[N/y]${NC} "
       read -r response
       response=${response,,}    # tolower
         if [[ $response !=  "y" && $response != "Y"  && $response != "yes" && $response != "Yes" ]]; then
-           echo -e "${red}User aborted script! Now exiting!${NC}"
+           echo -e "${red}$(eval_gettext "User aborted script! Now exiting!")${NC}"
           exit
         else
           addimagetag="no"
@@ -283,9 +289,9 @@ done
 }
 function combinemp3s(){
   if [ -n $1 ] && [ "$1" = "internet" ]; then
-    echo -e "${yellow} >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Combining MP3s for upload to the Internet. >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>${NC}"
+    echo -e "${yellow} >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> $(eval_gettext "Combining MP3s for upload to the Internet.") >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>${NC}"
   else
-    echo -e "${yellow} >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Combining MP3s for copying to USB devices locally. >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>${NC}"
+    echo -e "${yellow} >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> $(eval_gettext "Combining MP3s for copying to USB devices locally.") >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>${NC}"
   fi
   echo ""
   mp3wrap "${tempmp3file}" "${fileArray[@]}"
@@ -322,12 +328,11 @@ function copyfileforupload(){
 finished(){
   echo -e "${red}<>< <>< <>< <>< <>< <>< <>< <>< <>< <>< <>< <>< <>< <>< <>< <>< <>< <>< <>< <><  ${yellow}>°)))><${NC} ¸.·¯¯·.¸¸.·¯¯·.¸¸.·"
   echo ""
-  echo -e "${yellow}>>> ${NC}The combined church service MP3 file has been placed in ${red}${churchservicesfolder}${NC}."
-  echo -e "${yellow}>>> ${NC}The sermon and combined service MP3 files for uploading have been copied to ${red}${uploadsfolder}${NC}."  
+  echo -e "${yellow}>>> ${NC}$(eval_gettext "The combined church service MP3 file has been placed in")  ${red}${churchservicesfolder}${NC}."
+  echo -e "${yellow}>>> ${NC}$(eval_gettext "The sermon and combined service MP3 files for uploading have been copied to") ${red}${uploadsfolder}${NC}."
   echo ""
-  echo -e "${yellow}>>> ${NC}All done processing the MP3 files in ${yellow}${mp3filesfolder}${NC}."
-  echo -e "${yellow}>>> ${NC}${green}Have fun ${yellow}storming${green} the ${red}castle!${NC}"
-  echo -e "${yellow}>>> ${red}Don't forget to upload the created files!${NC}"
+  echo -e "${yellow}>>> ${NC}$(eval_gettext "All done processing the MP3 files in")  ${yellow}${mp3filesfolder}${NC}."
+  echo -e "${yellow}>>> ${red}$(eval_gettext "Don't forget to upload the created files!")${NC}"
 }
 
 # Testing functions not used in the script during normal use.

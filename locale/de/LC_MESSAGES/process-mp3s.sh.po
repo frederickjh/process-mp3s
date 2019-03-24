@@ -1,0 +1,137 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-06-09 19:34+0200\n"
+"PO-Revision-Date: 2018-06-09 21:36+0200\n"
+"Last-Translator: Frederick Henderson <frederickjh@henderson-meier.org>\n"
+"Language-Team: \n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.7.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: process-mp3s.sh:25
+#, sh-format
+msgid "Configuration file"
+msgstr "Konfigurationsdatei"
+
+#: process-mp3s.sh:25
+#, sh-format
+msgid "not found!  Aborting!"
+msgstr "nicht gefunden  Abbrechen!"
+
+#: process-mp3s.sh:34
+#, sh-format
+msgid "I require "
+msgstr "Ich benötige"
+
+#: process-mp3s.sh:34
+#, sh-format
+msgid "but it's not installed."
+msgstr "aber es ist nicht installiert."
+
+#: process-mp3s.sh:39
+#, sh-format
+msgid "dependencies are missing aborting!"
+msgstr "Abhängigkeiten fehlen Abbruch!"
+
+#: process-mp3s.sh:68
+#, sh-format
+msgid "Error:"
+msgstr "Fehler:"
+
+#: process-mp3s.sh:68
+#, sh-format
+msgid "is not a number"
+msgstr "ist keine Zahl"
+
+#: process-mp3s.sh:75
+#, sh-format
+msgid "Please enter the track number of the sermon."
+msgstr "Bitte geben Sie die Stücknummer der Predigt ein."
+
+#: process-mp3s.sh:92
+#, sh-format
+msgid ""
+"Please enter the tracks that should NOT be included in the mp3 of the whole "
+"service that will be uploaded to the website separated by spaces."
+msgstr ""
+"Bitte geben Sie die Tracks ein, die NICHT im mp3 des gesamten Dienstes "
+"enthalten sein sollen, der durch Leerzeichen getrennt auf die Website "
+"hochgeladen wird."
+
+#: process-mp3s.sh:102
+#, sh-format
+msgid "Aborting try again with track numbers!"
+msgstr "Abgebrochener Versuch, versuchen sie mit Stücknummern!"
+
+#: process-mp3s.sh:135
+#, sh-format
+msgid "Image file"
+msgstr "Bilddatei"
+
+#: process-mp3s.sh:135
+#, sh-format
+msgid "to add to mp3 id3 tag does not exist!"
+msgstr "zum mp3 id3-Tag hinzuzufügen existiert nicht!"
+
+#: process-mp3s.sh:136
+#, sh-format
+msgid "Please replace"
+msgstr "Bitte ersetzen"
+
+#: process-mp3s.sh:136
+#, sh-format
+msgid "so it will be addded to the mp3's id3 tags."
+msgstr "also wird es zu den id3-Tags des mp3 hinzugefügt."
+
+#: process-mp3s.sh:137
+#, sh-format
+msgid "Do you want to continue and add the tags without the image file?"
+msgstr "Möchten Sie fortfahren und die Tags ohne die Bilddatei hinzufügen?"
+
+#: process-mp3s.sh:141
+#, sh-format
+msgid "User aborted script! Now exiting!"
+msgstr "Benutzer hat das Skript abgebrochen! Das Programm wird nun beendet!"
+
+#: process-mp3s.sh:285
+#, sh-format
+msgid "Combining MP3s for upload to the Internet."
+msgstr "Ich kombiniere jetzt die MP3s für den Upload ins Internet."
+
+#: process-mp3s.sh:287
+#, sh-format
+msgid "Combining MP3s for copying to USB devices locally."
+msgstr "Ich kombiniere jetzt MP3s zum lokalen Kopieren auf USB-Geräte."
+
+#: process-mp3s.sh:324
+#, sh-format
+msgid "The combined church service MP3 file has been placed in"
+msgstr "Die kombinierte MP3-Datei des Gottesdienstes wurde  abgelegt in"
+
+#: process-mp3s.sh:325
+#, sh-format
+msgid ""
+"The sermon and combined service MP3 files for uploading have been copied to"
+msgstr ""
+"Die Predigt und der kombinierte Gottesdienst MP3-Dateien zum Hochladen "
+"wurden kopiert nach"
+
+#: process-mp3s.sh:327
+#, sh-format
+msgid "All done processing the MP3 files in"
+msgstr "Alles fertig mit der Verarbeitung der MP3-Dateien in"
+
+#: process-mp3s.sh:328
+#, sh-format
+msgid "Don't forget to upload the created files!"
+msgstr "Vergessen Sie nicht, die erstellten Dateien hochzuladen!"
