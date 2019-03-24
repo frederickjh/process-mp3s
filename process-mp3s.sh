@@ -99,6 +99,7 @@ done
 # use for loop read all filenames
 for (( d=0; d<${dLen}; d++ ));  
 do
+# If a single digit is entered add a zero in front of it.
    if [ ${#dontincludetracks[$d]} = 1 ]; then
      dontincludetracks[$d]="0${dontincludetracks[$d]}"
    else
