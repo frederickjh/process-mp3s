@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-09 19:33+0200\n"
+"POT-Creation-Date: 2019-03-24 22:31+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,90 +42,118 @@ msgstr ""
 msgid "dependencies are missing aborting!"
 msgstr ""
 
-#: process-mp3s.sh:68
+#: process-mp3s.sh:47
+#, sh-format
+msgid "This version of eyeD3, "
+msgstr ""
+
+#: process-mp3s.sh:47
+#, sh-format
+msgid " is higher than the tested version of "
+msgstr ""
+
+#: process-mp3s.sh:48
+#, sh-format
+msgid "The release notes for "
+msgstr ""
+
+#: process-mp3s.sh:48
+#, sh-format
+msgid " state the following:"
+msgstr ""
+
+#: process-mp3s.sh:49
+#, sh-format
+msgid ""
+"This release is NOT API compatible with 0.6.x. The majority of the command "
+"line interface has been preserved although many options have either changed "
+"or been removed."
+msgstr ""
+
+#: process-mp3s.sh:78
 #, sh-format
 msgid "Error:"
 msgstr ""
 
-#: process-mp3s.sh:68
+#: process-mp3s.sh:78
 #, sh-format
 msgid "is not a number"
 msgstr ""
 
-#: process-mp3s.sh:75
+#: process-mp3s.sh:85
 #, sh-format
 msgid "Please enter the track number of the sermon."
 msgstr ""
 
-#: process-mp3s.sh:92
+#: process-mp3s.sh:100
 #, sh-format
 msgid ""
 "Please enter the tracks that should NOT be included in the mp3 of the whole "
 "service that will be uploaded to the website separated by spaces."
 msgstr ""
 
-#: process-mp3s.sh:102
+#: process-mp3s.sh:110
 #, sh-format
 msgid "Aborting try again with track numbers!"
 msgstr ""
 
-#: process-mp3s.sh:135
+#: process-mp3s.sh:142
 #, sh-format
 msgid "Image file"
 msgstr ""
 
-#: process-mp3s.sh:135
+#: process-mp3s.sh:142
 #, sh-format
 msgid "to add to mp3 id3 tag does not exist!"
 msgstr ""
 
-#: process-mp3s.sh:136
+#: process-mp3s.sh:143
 #, sh-format
 msgid "Please replace"
 msgstr ""
 
-#: process-mp3s.sh:136
+#: process-mp3s.sh:143
 #, sh-format
 msgid "so it will be addded to the mp3's id3 tags."
 msgstr ""
 
-#: process-mp3s.sh:137
+#: process-mp3s.sh:144
 #, sh-format
 msgid "Do you want to continue and add the tags without the image file?"
 msgstr ""
 
-#: process-mp3s.sh:141
+#: process-mp3s.sh:148
 #, sh-format
 msgid "User aborted script! Now exiting!"
 msgstr ""
 
-#: process-mp3s.sh:285
+#: process-mp3s.sh:292
 #, sh-format
 msgid "Combining MP3s for upload to the Internet."
 msgstr ""
 
-#: process-mp3s.sh:287
+#: process-mp3s.sh:294
 #, sh-format
 msgid "Combining MP3s for copying to USB devices locally."
 msgstr ""
 
-#: process-mp3s.sh:324
+#: process-mp3s.sh:331
 #, sh-format
 msgid "The combined church service MP3 file has been placed in"
 msgstr ""
 
-#: process-mp3s.sh:325
+#: process-mp3s.sh:332
 #, sh-format
 msgid ""
 "The sermon and combined service MP3 files for uploading have been copied to"
 msgstr ""
 
-#: process-mp3s.sh:327
+#: process-mp3s.sh:334
 #, sh-format
 msgid "All done processing the MP3 files in"
 msgstr ""
 
-#: process-mp3s.sh:328
+#: process-mp3s.sh:335
 #, sh-format
 msgid "Don't forget to upload the created files!"
 msgstr ""
