@@ -34,6 +34,16 @@ for dependency in $dependencies;
     exit $missing
   fi 
 }
+function checkeyed3version() {
+# Check the version of eyeD3. We have only tested with version 0.6.18. The next version 0.7.0 breaks the API and may require a rewrite.
+    eyed3version=($(eyeD3 --version | head -n 1| awk '{print $2}'| awk -F "." '{print $1}'' ''{print $2}'' ''{print $3}'))
+if [ ${eyed3version[1]} -gt 6 -o ${eyed3version[0]} -gt 0 ]; then
+    echo -e "${red}This version of eyeD3, ${yellow}${eyed3version[0]}.${eyed3version[1]}.${eyed3version[2]}${red} is higher than the tested version of ${green}0.6.18.${NC}"
+    echo -e "${red}The release notes for ${yellow}0.7.0${red} state the following:${NC}"
+    echo -e "${yellow}This release is NOT API compatible with 0.6.x. The majority of the command line interface has been preserved although many options have either changed or been removed.${NC}"
+    echo -e "${green}https://github.com/nicfit/eyeD3/blob/c68a88751e8d84408824cbf6c2b53da157bf5785/HISTORY.rst#070---11152012-be-quiet-and-drive${NC}"
+fi
+}
 # Check if the folders we want to place files into exist, if not create them.
 function checkiffoldersexist(){
 	if [ ! -d ${churchservicesfolder} ]; then
@@ -350,6 +360,7 @@ function testechosermon(){
 #############  MAIN PROGRAM #################
 loadcolor
 checkdependencies
+checkeyed3version
 getconfiguration
 checkiffoldersexist
 doesimagefileexist
