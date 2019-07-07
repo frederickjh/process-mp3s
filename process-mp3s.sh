@@ -221,12 +221,12 @@ function makeid3tags(){
 
 function setid3tags(){
   # Remove URL tag  and embedded images from mp3s so we can then add our own.
-  eyeD3 --set-url-frame="WXXX:" --remove-images "${unsanitizedfilename}" 
+  eyeD3 --url-frame="WXXX:" --remave-image "${unsanitizedfilename}" 
   # Check if we are including the image tag or not.
   if [ "${addimagetag}" = "yes" ]; then
-  eyeD3 -a "${id3artist}" -A "${id3album}" -t "${id3title}" -n ${id3track} -p "${id3publisher}" --set-text-frame="TCOP:${id3copyright}" -Y ${id3year} --set-user-url-frame="${id3url}" "--add-image=${id3image}:FRONT_COVER:Regichile Logo" "${unsanitizedfilename}"
+  eyeD3 -a "${id3artist}" -A "${id3album}" -t "${id3title}" -n ${id3track} -p "${id3publisher}" --set-text-frame="TCOP:${id3copyright}" -Y ${id3year} --user-url-frame="${id3url}" "--add-image=${id3image}:FRONT_COVER:Regichile Logo" "${unsanitizedfilename}"
   elif [ "${addimagetag}" = "no" ]; then
-    eyeD3 -a "${id3artist}" -A "${id3album}" -t "${id3title}" -n ${id3track} -p "${id3publisher}" --set-text-frame="TCOP:${id3copyright}" -Y ${id3year} --set-user-url-frame="${id3url}" "${unsanitizedfilename}"
+    eyeD3 -a "${id3artist}" -A "${id3album}" -t "${id3title}" -n ${id3track} -p "${id3publisher}" --set-text-frame="TCOP:${id3copyright}" -Y ${id3year} --user-url-frame="${id3url}" "${unsanitizedfilename}"
   fi
 }
 
@@ -319,12 +319,12 @@ function renameandtagcombinemp3(){
   fi
   mv "${tempmp3file}" "${combinedmp3file}"
   # Remove URL tag from mp3wrap so we can then add our own.
-  eyeD3 --set-url-frame="WXXX:" "${combinedmp3file}"
+  eyeD3 --url-frame="WXXX:" "${combinedmp3file}"
   # Check if we are including the image tag or not.
   if [ "${addimagetag}" = "yes" ]; then
-  eyeD3 -a "${id3combineartist}" -A "${id3combinealbum}" -t "${id3combinetitle}" -n ${id3combinetrack} -p "${id3publisher}" --set-text-frame="TCOP:${id3copyright}" -Y ${id3combineyear} --set-user-url-frame="${id3url}" "--add-image=${id3image}:FRONT_COVER:Regichile Logo" "${combinedmp3file}"
+  eyeD3 -a "${id3combineartist}" -A "${id3combinealbum}" -t "${id3combinetitle}" -n ${id3combinetrack} -p "${id3publisher}" --set-text-frame="TCOP:${id3copyright}" -Y ${id3combineyear} --user-url-frame="${id3url}" "--add-image=${id3image}:FRONT_COVER:Regichile Logo" "${combinedmp3file}"
   elif [ "${addimagetag}" = "no" ]; then
-  eyeD3 -a "${id3combineartist}" -A "${id3combinealbum}" -t "${id3combinetitle}" -n ${id3combinetrack} -p "${id3publisher}" --set-text-frame="TCOP:${id3copyright}" -Y ${id3combineyear} --set-user-url-frame="${id3url}" "${combinedmp3file}"
+  eyeD3 -a "${id3combineartist}" -A "${id3combinealbum}" -t "${id3combinetitle}" -n ${id3combinetrack} -p "${id3publisher}" --set-text-frame="TCOP:${id3copyright}" -Y ${id3combineyear} --user-url-frame="${id3url}" "${combinedmp3file}"
   fi
 }
 function copyfileforupload(){
