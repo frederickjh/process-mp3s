@@ -52,6 +52,8 @@ if [ ${eyed3version[1]} -gt 6 -o ${eyed3version[0]} -gt 0 ]; then
     echo -e "${red}$(eval_gettext "The release notes for ")${yellow}0.7.0${red}$(eval_gettext " state the following:")${NC}"
     echo -e "${yellow}$(eval_gettext "This release is NOT API compatible with 0.6.x. The majority of the command line interface has been preserved although many options have either changed or been removed.")${NC}"
     echo -e "${green}https://github.com/nicfit/eyeD3/blob/c68a88751e8d84408824cbf6c2b53da157bf5785/HISTORY.rst#070---11152012-be-quiet-and-drive${NC}"
+    echo -e "${red}Aborting! Upgrade to the next version of this script (${yellow}2.0.0${red}) or higher if available or get version ${green}0.6.18${red} of eyeD3 to run with this script.${NC}"
+    exit 1
 fi
 }
 # Check if the folders we want to place files into exist, if not create them.
