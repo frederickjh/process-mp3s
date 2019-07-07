@@ -22,7 +22,7 @@ dependencies="mp3wrap eyeD3 sed find"
 tempmp3file="temp_MP3WRAP.mp3"
 # Symbol to replace with a dash(-) in id3 tags harvested from the filenames.
 # See function dashsymbolreplacement() below for more information. Be careful what you use for a symbol.
-dashreplacementsymbol="*"
+dashreplacementsymbol="__"
 
 # get configuration
 function getconfiguration(){
