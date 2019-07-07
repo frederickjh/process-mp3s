@@ -371,7 +371,7 @@ function testechosermon(){
 #############  MAIN PROGRAM #################
 loadcolor
 checkdependencies
-checkeyed3version
+# checkeyed3version Removed as we are moving past version 0.6.8
 getconfiguration
 checkiffoldersexist
 doesimagefileexist
