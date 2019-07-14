@@ -8,6 +8,10 @@ source gettext.sh
 export TEXTDOMAIN=$(basename $0) # Name of this script
 export TEXTDOMAINDIR=$(dirname "$(readlink -f "$0")")/locale # Location of this script
 
+# Set the version wildcard for eyeD3 that this version should be compatible with.
+# Enter the version with spaces where the periods normally would be.
+eyed3versionok=(0 8 10)
+
 # Where are the mp3 to process?
 mp3filesfolder="$1"
 # failsafe - fall back to current directory
@@ -44,15 +48,16 @@ function checkeyed3version() {
 # Check the version of eyeD3. We have only tested with version 0.6.18. The next version 0.7.0 breaks the API and may require a rewrite.
     eyed3version=($(eyeD3 --version | head -n 1| awk '{print $2}'| awk -F "." '{print $1}'' ''{print $2}'' ''{print $3}'))
 # Newer versions of eyeD3 output the version number to  stderr instead of stdout?! Also only one line with just the version number.
-if [ ${eyed3version[1]} -z -o ${eyed3version[0]} -z ] ; then
+if [ -z ${eyed3version[1]} -o -z ${eyed3version[0]} ] ; then
   eyed3version=($(eyeD3 --version 2>&1 | awk -F "." '{print $1}'' ''{print $2}'' ''{print $3}'))
 fi
-if [ ${eyed3version[1]} -gt 6 -o ${eyed3version[0]} -gt 0 ]; then
-    echo -e "${red}$(eval_gettext "This version of eyeD3, ")${yellow}${eyed3version[0]}.${eyed3version[1]}.${eyed3version[2]}${red}$(eval_gettext " is higher than the tested version of ")${green}0.6.18.${NC}"
+if [ ${eyed3version[1]} -gt ${eyed3versionok[1]} -o ${eyed3version[1]} -lt ${eyed3versionok[1]} ]; then
+    echo -e "${red}$(eval_gettext "This version of eyeD3, ")${yellow}${eyed3version[0]}.${eyed3version[1]}.${eyed3version[2]}${red}$(eval_gettext " is of a different minor version than the tested version of ")${green}${eyed3versionok[0]}.${eyed3versionok[1]}.${eyed3versionok[2]}.${NC}"
     echo -e "${red}$(eval_gettext "The release notes for ")${yellow}0.7.0${red}$(eval_gettext " state the following:")${NC}"
     echo -e "${yellow}$(eval_gettext "This release is NOT API compatible with 0.6.x. The majority of the command line interface has been preserved although many options have either changed or been removed.")${NC}"
     echo -e "${green}https://github.com/nicfit/eyeD3/blob/c68a88751e8d84408824cbf6c2b53da157bf5785/HISTORY.rst#070---11152012-be-quiet-and-drive${NC}"
-    echo -e "${red}Aborting! Upgrade to the next version of this script (${yellow}2.0.0${red}) or higher if available or get version ${green}0.6.18${red} of eyeD3 to run with this script.${NC}"
+    echo -e "The next minor version 0.8.x also states it has breaking changes."
+    echo -e "${red}Aborting! Upgrade to the next version of this script (${yellow}2.0.0${red}) or higher if available or get version ${green}${eyed3versionok[0]}.${eyed3versionok[1]}.${eyed3versionok[2]}${red} of eyeD3 to run with this version of the script.${NC}"
     exit 1
 fi
 }
@@ -372,7 +377,7 @@ function testechosermon(){
 #############  MAIN PROGRAM #################
 loadcolor
 checkdependencies
-# checkeyed3version Removed as we are moving past version 0.6.8
+checkeyed3version
 getconfiguration
 checkiffoldersexist
 doesimagefileexist
