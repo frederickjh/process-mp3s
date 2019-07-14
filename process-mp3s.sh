@@ -307,7 +307,7 @@ function makecombinemp3id3tags(){
   id3combinetitle="$sermontitle"
   id3combinealbum="${sermonyear}-${sermonmonth}-${sermonday} ${sermonartist}"
   id3combineyear=$sermonyear
-  id3combinetrack="0"
+  id3combinetrack="1"
 }
 function renameandtagcombinemp3(){
   churchservicefilename="${sermonyear}-${sermonmonth}-${sermonday} - ${sermonartist} - ${sermontitle} - Gottesdienst"
@@ -322,9 +322,9 @@ function renameandtagcombinemp3(){
   eyeD3 --user-url-frame="WXXX:" "${combinedmp3file}"
   # Check if we are including the image tag or not.
   if [ "${addimagetag}" = "yes" ]; then
-  eyeD3 -a "${id3combineartist}" -A "${id3combinealbum}" -t "${id3combinetitle}" -n ${id3combinetrack} --publisher "${id3publisher}" --text-frame="TCOP:${id3copyright}" -Y ${id3combineyear} --user-url-frame="WOAR:${id3url}" "--add-image=${id3image}:FRONT_COVER:Regichile Logo" "${combinedmp3file}"
+  eyeD3 -a "${id3combineartist}" -A "${id3combinealbum}" -t "${id3combinetitle}" --track ${id3combinetrack} --track-total ${id3combinetrack} --publisher "${id3publisher}" --text-frame="TCOP:${id3copyright}" -Y ${id3combineyear} --user-url-frame="WOAR:${id3url}" "--add-image=${id3image}:FRONT_COVER:Regichile Logo" "${combinedmp3file}"
   elif [ "${addimagetag}" = "no" ]; then
-  eyeD3 -a "${id3combineartist}" -A "${id3combinealbum}" -t "${id3combinetitle}" -n ${id3combinetrack} --publisher "${id3publisher}" --text-frame="TCOP:${id3copyright}" -Y ${id3combineyear} --user-url-frame="WOAR:${id3url}" "${combinedmp3file}"
+  eyeD3 -a "${id3combineartist}" -A "${id3combinealbum}" -t "${id3combinetitle}" --track ${id3combinetrack} --track-total ${id3combinetrack} --publisher "${id3publisher}" --text-frame="TCOP:${id3copyright}" -Y ${id3combineyear} --user-url-frame="WOAR:${id3url}" "${combinedmp3file}"
   fi
 }
 function copyfileforupload(){
