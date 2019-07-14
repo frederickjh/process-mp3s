@@ -10,18 +10,20 @@ This script was born from that request and requirements. I also use this opportu
 ## Dependencies
 
 * [mp3wrap](http://mp3wrap.sourceforge.net/)
-* [eyeD3](http://eyed3.nicfit.net/)
+* [eyeD3](http://eyed3.nicfit.net/) version 0.8.x
 
 On ubuntu you can install them in the **Ubuntu Software Center**. You need to have enabled the Ubuntu (universe) repository. Universe is community-maintained free and open-source software. Or you can do so on the command line with:
 ```
 sudo apt-get install mp3wrap eyeD3
 ```
+### eyeD3
+`eyeD3` has not kept backward compatibility over its minor versions (number between the two periods in the version numbers), which I find strange. However maybe its maintainers do not following the [semver version numbering scheme](https://semver.org/). That said if you install an older or newer minor version of eyeD3 the script most likely will not function correctly and throw error messages. I figured this when I ran the 1.x version of this script on a new installation using a newer version of `eyeD3` than the script had been tested with (`eyeD3` **0.6.8**). The 2.x version of the `process-mp3s` script has been currently tested with `eyeD3` version **0.8.10**. If you are using version **0.6.8** of `eyeD3`, which is the default on Ubuntu 16.04, use the latest version 1.x of this script.
 
 ## Instructions for setup
 
 Place this script in your computers $PATH. If you are using Ubuntu go to your home folder(**/home/username/**) and create a folder called **bin** if it does not exist and place in there. Ubuntu will add this folder to your path if it exists. Also make sure that the script is executable.
 
-This script uses a separate configuration file. Copy the .process-mp3s to your home folder and change the tags for your configuration. eyeD3 is used for taging. Read its man page for more info on tags. mp3wrap is used to wrap the mp3 into a combined church service mp3.
+This script uses a separate configuration file. Copy the `.process-mp3s` to your home folder and change the tags for your configuration. eyeD3 is used for taging. Read its man page for more info on tags. mp3wrap is used to wrap the mp3 into a combined church service mp3.
 
 Also configurable are two folders were files will be place. More information about these can be found in the "What the script does" section.
 
