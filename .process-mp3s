@@ -20,10 +20,12 @@ id3artist="Name_of_Church"
 # ID3 tags that we set on all mp3 files
 # We set the publisher to the same as the artist
 id3publisher="$id3artist"
+
 # We set the copyright to the copyright symbol followed by the artist.
 id3copyright="© $id3artist"
-# This is your churches website. First a description then a colon (:) Then the website address starting with http://
-id3url="Name_of_Church Town Website:http://example.com"
+
+# This is your churches website. The church's website address starting with http://
+id3url="http://example.com"
 
 # ID3 tages set on combined MP3 files
 id3combineartist="Name_of_Church Town Church Service"
