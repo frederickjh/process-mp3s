@@ -221,7 +221,7 @@ function makeid3tags(){
 
 function setid3tags(){
   # Remove URL tag  and embedded images from mp3s so we can then add our own.
-  eyeD3 --url-frame="WXXX:" --remove-image "${unsanitizedfilename}" 
+  eyeD3 --url-frame="WXXX:" --remove-all-images "${unsanitizedfilename}" 
   # Check if we are including the image tag or not.
   if [ "${addimagetag}" = "yes" ]; then
   eyeD3 -a "${id3artist}" -A "${id3album}" -t "${id3title}" -n ${id3track} --publisher "${id3publisher}" --set-text-frame="TCOP:${id3copyright}" -Y ${id3year} --user-url-frame="${id3url}" "--add-image=${id3image}:FRONT_COVER:Regichile Logo" "${unsanitizedfilename}"
