@@ -1,6 +1,6 @@
 #!/bin/bash
 PS4=':${LINENO} + '
-set -x
+#set -x
 
 # Add gettext.sh functionality to the text translation capablities to the script.
 source gettext.sh
@@ -226,7 +226,7 @@ function setid3tags(){
   if [ "${addimagetag}" = "yes" ]; then
   eyeD3 -a "${id3artist}" -A "${id3album}" -t "${id3title}" -n ${id3track} --publisher "${id3publisher}" --text-frame="TCOP:${id3copyright}" -Y ${id3year} --user-url-frame="WXXX:${id3url}" "--add-image=${id3image}:FRONT_COVER:Regichile Logo" "${unsanitizedfilename}"
   elif [ "${addimagetag}" = "no" ]; then
-    eyeD3 -a "${id3artist}" -A "${id3album}" -t "${id3title}" -n ${id3track} --publisher "${id3publisher}" --text-frame="TCOP:${id3copyright}" -Y ${id3year} --user-url-frame="WXXX:${id3url}" "${unsanitizedfilename}"
+    eyeD3 -a "${id3artist}" -A "${id3album}" -t "${id3title}" -n ${id3track} --publisher "${id3publisher}" --text-frame="TCOP:${id3copyright}" -Y ${id3year} --user-url-frame="WOAR:${id3url}" "${unsanitizedfilename}"
   fi
 }
 
@@ -322,9 +322,9 @@ function renameandtagcombinemp3(){
   eyeD3 --user-url-frame="WXXX:" "${combinedmp3file}"
   # Check if we are including the image tag or not.
   if [ "${addimagetag}" = "yes" ]; then
-  eyeD3 -a "${id3combineartist}" -A "${id3combinealbum}" -t "${id3combinetitle}" -n ${id3combinetrack} --publisher "${id3publisher}" --text-frame="TCOP:${id3copyright}" -Y ${id3combineyear} --user-url-frame="WXXX:${id3url}" "--add-image=${id3image}:FRONT_COVER:Regichile Logo" "${combinedmp3file}"
+  eyeD3 -a "${id3combineartist}" -A "${id3combinealbum}" -t "${id3combinetitle}" -n ${id3combinetrack} --publisher "${id3publisher}" --text-frame="TCOP:${id3copyright}" -Y ${id3combineyear} --user-url-frame="WOAR:${id3url}" "--add-image=${id3image}:FRONT_COVER:Regichile Logo" "${combinedmp3file}"
   elif [ "${addimagetag}" = "no" ]; then
-  eyeD3 -a "${id3combineartist}" -A "${id3combinealbum}" -t "${id3combinetitle}" -n ${id3combinetrack} --publisher "${id3publisher}" --text-frame="TCOP:${id3copyright}" -Y ${id3combineyear} --user-url-frame="WXXX:${id3url}" "${combinedmp3file}"
+  eyeD3 -a "${id3combineartist}" -A "${id3combinealbum}" -t "${id3combinetitle}" -n ${id3combinetrack} --publisher "${id3publisher}" --text-frame="TCOP:${id3copyright}" -Y ${id3combineyear} --user-url-frame="WOAR:${id3url}" "${combinedmp3file}"
   fi
 }
 function copyfileforupload(){
