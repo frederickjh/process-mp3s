@@ -217,6 +217,7 @@ function makeid3tags(){
   id3album="${year}-${month}-${day} ${artist}"
   id3year=$year
   id3track=$track
+  id3combinetracktotal=${#fileArray[@]}
 }
 
 function setid3tags(){
@@ -224,9 +225,9 @@ function setid3tags(){
   eyeD3 --user-url-frame="WXXX:" --remove-all-images "${unsanitizedfilename}" 
   # Check if we are including the image tag or not.
   if [ "${addimagetag}" = "yes" ]; then
-  eyeD3 -a "${id3artist}" -A "${id3album}" -t "${id3title}" -n ${id3track} --publisher "${id3publisher}" --text-frame="TCOP:${id3copyright}" -Y ${id3year} --user-url-frame="WXXX:${id3url}" "--add-image=${id3image}:FRONT_COVER:Regichile Logo" "${unsanitizedfilename}"
+  eyeD3 -a "${id3artist}" -A "${id3album}" -t "${id3title}" -n ${id3track} --track-total ${id3combinetracktotal} --publisher "${id3publisher}" --text-frame="TCOP:${id3copyright}" -Y ${id3year} --user-url-frame="WXXX:${id3url}" "--add-image=${id3image}:FRONT_COVER:Regichile Logo" "${unsanitizedfilename}"
   elif [ "${addimagetag}" = "no" ]; then
-    eyeD3 -a "${id3artist}" -A "${id3album}" -t "${id3title}" -n ${id3track} --publisher "${id3publisher}" --text-frame="TCOP:${id3copyright}" -Y ${id3year} --user-url-frame="WOAR:${id3url}" "${unsanitizedfilename}"
+    eyeD3 -a "${id3artist}" -A "${id3album}" -t "${id3title}" -n ${id3track} --track-total ${id3combinetracktotal} --publisher "${id3publisher}" --text-frame="TCOP:${id3copyright}" -Y ${id3year} --user-url-frame="WOAR:${id3url}" "${unsanitizedfilename}"
   fi
 }
 
