@@ -56,8 +56,8 @@ if [ ${eyed3version[1]} -gt ${eyed3versionok[1]} -o ${eyed3version[1]} -lt ${eye
     echo -e "${red}$(eval_gettext "The release notes for ")${yellow}0.7.0${red}$(eval_gettext " state the following:")${NC}"
     echo -e "${yellow}$(eval_gettext "This release is NOT API compatible with 0.6.x. The majority of the command line interface has been preserved although many options have either changed or been removed.")${NC}"
     echo -e "${green}https://github.com/nicfit/eyeD3/blob/c68a88751e8d84408824cbf6c2b53da157bf5785/HISTORY.rst#070---11152012-be-quiet-and-drive${NC}"
-    echo -e "The next minor version 0.8.x also states it has breaking changes."
-    echo -e "${red}Aborting! Upgrade to the next version of this script (${yellow}2.0.0${red}) or higher if available or get version ${green}${eyed3versionok[0]}.${eyed3versionok[1]}.${eyed3versionok[2]}${red} of eyeD3 to run with this version of the script.${NC}"
+    echo -e "The next minor version of eyeD3, 0.8.x also states it has breaking changes."
+    echo -e "${red}Aborting! Upgrade to the next version of this ${yellow}process-mp3s.sh${red} script (${yellow}1.0.0${red}) or higher if available or get version ${green}${eyed3versionok[0]}.${eyed3versionok[1]}.${eyed3versionok[2]}${red} of ${yellow}eyeD3${red} to run with this version of ${yellow}process-mp3s.sh${red}.${NC}"
     exit 1
 fi
 }

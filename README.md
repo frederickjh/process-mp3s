@@ -17,7 +17,11 @@ On ubuntu you can install them in the **Ubuntu Software Center**. You need to ha
 sudo apt-get install mp3wrap eyeD3
 ```
 ### eyeD3
-`eyeD3` has not kept backward compatibility over its minor versions (number between the two periods in the version numbers), which I find strange. However maybe its maintainers do not following the [semver version numbering scheme](https://semver.org/). That said if you install an older or newer minor version of eyeD3 the script most likely will not function correctly and throw error messages. I figured this when I ran the 1.x version of this script on a new installation using a newer version of `eyeD3` than the script had been tested with (`eyeD3` **0.6.8**). The 2.x version of the `process-mp3s` script has been currently tested with `eyeD3` version **0.8.10**. If you are using version **0.6.8** of `eyeD3`, which is the default on Ubuntu 16.04, use the latest version 1.x of this script.
+`eyeD3` has not kept backward compatibility over its minor versions (number between the two periods in the version numbers), which I find strange. However maybe its maintainers do not following the [semver version numbering scheme](https://semver.org/). 
+
+If you install an older or newer minor version of eyeD3 the script most likely will not function correctly and throw error messages. I figured this when I ran the **0.1.x** version of this script on a new installation using a newer version of `eyeD3` than the script had been tested with (`eyeD3` **0.6.8**).
+
+The **1.x.x** version of the `process-mp3s` script has been currently tested with `eyeD3` version **0.8.10**. If you are using version **0.6.8** of `eyeD3`, which is the default on Ubuntu 16.04, use the latest version **0.1.x** of this script.
 
 ## Instructions for setup
 
