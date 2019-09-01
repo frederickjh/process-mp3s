@@ -204,13 +204,23 @@ do
   IFS=$'-'
   unsanitizedfilename="${fileArray[$i]}"
   sanitizefilename
-  set $sanitizedfilename
-  year=$1
-  month=$2
-  day=$(trim $3)
-  artist=$(trim $4)
-  track=$(trim $5)
-  title=$(trim $6)
+  #Read the split words into an array based on dash delimiter
+  declare -a filenamearraysplitbydashes
+  read -a filenamearraysplitbydashes <<< "$sanitizedfilename"
+  year=${filenamearraysplitbydashes[0]}
+  month=${filenamearraysplitbydashes[1]}
+  day=$(trim ${filenamearraysplitbydashes[2]})
+  artist=$(trim ${filenamearraysplitbydashes[3]})
+  track=$(trim ${filenamearraysplitbydashes[4]})
+  # get rid of the year, month, day, artist, and track array elements so
+  # all that is left is the track title element(s) that may have be
+  # divided because of dashes in it.
+  unset filenamearraysplitbydashes[0]
+  unset filenamearraysplitbydashes[1]
+  unset filenamearraysplitbydashes[2]
+  unset filenamearraysplitbydashes[3]
+  unset filenamearraysplitbydashes[4]
+  title=$(trim ${filenamearraysplitbydashes[@]})
   IFS=$OLDIFS
   makeid3tags
   setid3tags
