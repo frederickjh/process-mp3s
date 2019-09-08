@@ -322,12 +322,27 @@ do
   track=$(trim $5)
   IFS=$OLDIFS
   if [ ${track} = ${sermontrack} ]; then
-    sermonyear=$1
-    sermonmonth=$2
-    sermonday=$(trim $3)
-    sermonartist=$(trim $4)
-    sermontitle=$(trim $6)
-    sermontrack=$(trim $5)
+    #Read the split words into an array based on dash delimiter
+    declare -a sermonfilenamearraysplitbydashes
+    OLDIFS=$IFS
+    # Go through using dash (-) as the separator.
+    IFS=$'-'
+    read -a sermonfilenamearraysplitbydashes <<< "$sanitizedfilename"
+    sermonyear=${sermonfilenamearraysplitbydashes[0]}
+    sermonmonth=${sermonfilenamearraysplitbydashes[1]}
+    sermonday=$(trim ${sermonfilenamearraysplitbydashes[2]})
+    sermonartist=$(trim ${sermonfilenamearraysplitbydashes[3]})
+    sermontrack=$(trim ${sermonfilenamearraysplitbydashes[4]})
+    # get rid of the year, month, day, artist, and track array elements so
+    # all that is left is the track title element(s) that would have been
+    # truncated at the first dash.
+    unset sermonfilenamearraysplitbydashes[0]
+    unset sermonfilenamearraysplitbydashes[1]
+    unset sermonfilenamearraysplitbydashes[2]
+    unset sermonfilenamearraysplitbydashes[3]
+    unset sermonfilenamearraysplitbydashes[4]
+    sermontitle=$(trim ${sermonfilenamearraysplitbydashes[@]})
+    IFS=$OLDIFS
     sermonfile="${unsanitizedfilename}"
     # Replace dashreplacmentsymbol in sermonfile and sermontitle
     sermontitle=${sermontitle//${dashreplacementsymbol}/-}
