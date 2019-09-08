@@ -216,8 +216,8 @@ do
   artist=$(trim ${filenamearraysplitbydashes[3]})
   track=$(trim ${filenamearraysplitbydashes[4]})
   # get rid of the year, month, day, artist, and track array elements so
-  # all that is left is the track title element(s) that may have be
-  # divided because of dashes in it.
+  # all that is left is the track title element(s) that would have been
+  # truncated at the first dash.
   unset filenamearraysplitbydashes[0]
   unset filenamearraysplitbydashes[1]
   unset filenamearraysplitbydashes[2]
@@ -326,9 +326,14 @@ do
     sermonmonth=$2
     sermonday=$(trim $3)
     sermonartist=$(trim $4)
-    sermontitle=$(trim $6) 
+    sermontitle=$(trim $6)
     sermontrack=$(trim $5)
     sermonfile="${unsanitizedfilename}"
+    # Replace dashreplacmentsymbol in sermonfile and sermontitle
+    sermontitle=${sermontitle//${dashreplacementsymbol}/-}
+    sermonfile=${sermonfile//${dashreplacementsymbol}/-}
+    # Now set the filename without dashes in the fileArray so we can get the new filename when we later combine mp3 files.
+    fileArray[$i]="${sermonfile}"
     break
   fi 
 done
