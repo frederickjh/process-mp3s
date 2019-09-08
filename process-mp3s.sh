@@ -248,7 +248,9 @@ function dashsymbolreplacementintags(){
 ### After tagging the files we can now safely rename them by replacing the dashreplacementsymbol with dashes in the filenames.
 function dashsymbolreplacementinfilenames() {
   filenamewithdashreplacementsmade=${unsanitizedfilename//${dashreplacementsymbol}/-}
-  mv "${unsanitizedfilename}" "${filenamewithdashreplacementsmade}"
+  if [ "${unsanitizedfilename}" != "${filenamewithdashreplacementsmade}" ]; then
+    mv "${unsanitizedfilename}" "${filenamewithdashreplacementsmade}"
+  fi
 }
 # Takes the info we have collected and rearranges it to set the id3 tags the way we want.
 function makeid3tags(){
