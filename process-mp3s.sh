@@ -20,6 +20,9 @@ mp3filesfolder="$1"
 dependencies="mp3wrap eyeD3 sed find"
 # Temporary mp3 wrap filename to use. We will rename it to get rid of the MP3WRAP in the filename.
 tempmp3file="temp_MP3WRAP.mp3"
+# Symbol to replace with a dash(-) in id3 tags harvested from the filenames.
+# See function dashsymbolreplacementintags() and dashsymbolreplacementinfilenames() below for more information. Be careful what you use for a symbol. ie. * does not work.
+dashreplacementsymbol="__"
 
 # get configuration
 function getconfiguration(){
@@ -204,17 +207,50 @@ do
   IFS=$'-'
   unsanitizedfilename="${fileArray[$i]}"
   sanitizefilename
-  set $sanitizedfilename
-  year=$1
-  month=$2
-  day=$(trim $3)
-  artist=$(trim $4)
-  track=$(trim $5)
-  title=$(trim $6)
+  #Read the split words into an array based on dash delimiter
+  declare -a filenamearraysplitbydashes
+  read -a filenamearraysplitbydashes <<< "$sanitizedfilename"
+  year=${filenamearraysplitbydashes[0]}
+  month=${filenamearraysplitbydashes[1]}
+  day=$(trim ${filenamearraysplitbydashes[2]})
+  artist=$(trim ${filenamearraysplitbydashes[3]})
+  track=$(trim ${filenamearraysplitbydashes[4]})
+  # get rid of the year, month, day, artist, and track array elements so
+  # all that is left is the track title element(s) that would have been
+  # truncated at the first dash.
+  unset filenamearraysplitbydashes[0]
+  unset filenamearraysplitbydashes[1]
+  unset filenamearraysplitbydashes[2]
+  unset filenamearraysplitbydashes[3]
+  unset filenamearraysplitbydashes[4]
+  title=$(trim ${filenamearraysplitbydashes[@]})
   IFS=$OLDIFS
+  dashsymbolreplacementintags
   makeid3tags
   setid3tags
+  dashsymbolreplacementinfilenames
 done
+}
+### Dash replacement feature
+# Since we use dashes to divide up the file name
+# in to id3 tags we cannot use dashes in the id3 tags, otherwise it messes
+# up our tags. To allow dashes we allow a replacement symbol to be entered
+# which we will replace with a dash in this function after the tag information
+# has already been split out.
+function dashsymbolreplacementintags(){
+  for arg in title artist track; do
+    eval value=\$$arg
+# If you're relying on bash/ksh/zsh, you can make the replacements inside the shell with the ${VARIABLE//PATTERN/REPLACEMENT} construct.
+    value=${value//${dashreplacementsymbol}/-}
+    eval $arg=\$value
+  done
+}
+### After tagging the files we can now safely rename them by replacing the dashreplacementsymbol with dashes in the filenames.
+function dashsymbolreplacementinfilenames() {
+  filenamewithdashreplacementsmade=${unsanitizedfilename//${dashreplacementsymbol}/-}
+  if [ "${unsanitizedfilename}" != "${filenamewithdashreplacementsmade}" ]; then
+    mv "${unsanitizedfilename}" "${filenamewithdashreplacementsmade}"
+  fi
 }
 # Takes the info we have collected and rearranges it to set the id3 tags the way we want.
 function makeid3tags(){
@@ -288,13 +324,33 @@ do
   track=$(trim $5)
   IFS=$OLDIFS
   if [ ${track} = ${sermontrack} ]; then
-    sermonyear=$1
-    sermonmonth=$2
-    sermonday=$(trim $3)
-    sermonartist=$(trim $4)
-    sermontitle=$(trim $6) 
-    sermontrack=$(trim $5)
+    #Read the split words into an array based on dash delimiter
+    declare -a sermonfilenamearraysplitbydashes
+    OLDIFS=$IFS
+    # Go through using dash (-) as the separator.
+    IFS=$'-'
+    read -a sermonfilenamearraysplitbydashes <<< "$sanitizedfilename"
+    sermonyear=${sermonfilenamearraysplitbydashes[0]}
+    sermonmonth=${sermonfilenamearraysplitbydashes[1]}
+    sermonday=$(trim ${sermonfilenamearraysplitbydashes[2]})
+    sermonartist=$(trim ${sermonfilenamearraysplitbydashes[3]})
+    sermontrack=$(trim ${sermonfilenamearraysplitbydashes[4]})
+    # get rid of the year, month, day, artist, and track array elements so
+    # all that is left is the track title element(s) that would have been
+    # truncated at the first dash.
+    unset sermonfilenamearraysplitbydashes[0]
+    unset sermonfilenamearraysplitbydashes[1]
+    unset sermonfilenamearraysplitbydashes[2]
+    unset sermonfilenamearraysplitbydashes[3]
+    unset sermonfilenamearraysplitbydashes[4]
+    sermontitle=$(trim ${sermonfilenamearraysplitbydashes[@]})
+    IFS=$OLDIFS
     sermonfile="${unsanitizedfilename}"
+    # Replace dashreplacmentsymbol in sermonfile and sermontitle
+    sermontitle=${sermontitle//${dashreplacementsymbol}/-}
+    sermonfile=${sermonfile//${dashreplacementsymbol}/-}
+    # Now set the filename without dashes in the fileArray so we can get the new filename when we later combine mp3 files.
+    fileArray[$i]="${sermonfile}"
     break
   fi 
 done
