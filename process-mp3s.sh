@@ -210,8 +210,8 @@ do
   #Read the split words into an array based on dash delimiter
   declare -a filenamearraysplitbydashes
   read -a filenamearraysplitbydashes <<< "$sanitizedfilename"
-  year=${filenamearraysplitbydashes[0]}
-  month=${filenamearraysplitbydashes[1]}
+  year=$(trim ${filenamearraysplitbydashes[0]})
+  month=$(trim ${filenamearraysplitbydashes[1]})
   day=$(trim ${filenamearraysplitbydashes[2]})
   artist=$(trim ${filenamearraysplitbydashes[3]})
   track=$(trim ${filenamearraysplitbydashes[4]})
