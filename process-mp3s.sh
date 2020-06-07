@@ -256,7 +256,10 @@ function dashsymbolreplacementinfilenames() {
 function makeid3tags(){
   id3title="$title"
   id3album="${year}-${month}-${day} ${artist}"
+  ## All eyeD3 date options (-Y, --release-year excepted) follow ISO 8601 format. This is
+  ## yyyy-mm-ddThh:mm:ss  The year is required, and each component thereafter is optional.
   id3year=$year
+  id3recordingdate="${year}-${month}-${day}"
   id3track=$track
   id3combinetracktotal=${#fileArray[@]}
 }
@@ -266,9 +269,9 @@ function setid3tags(){
   eyeD3 --user-url-frame="WXXX:" --remove-all-images "${unsanitizedfilename}" 
   # Check if we are including the image tag or not.
   if [ "${addimagetag}" = "yes" ]; then
-  eyeD3 --artist "${id3artist}" --album "${id3album}" --title "${id3title}" --track ${id3track} --track-total ${id3combinetracktotal} --publisher "${id3publisher}" --text-frame="TCOP:${id3copyright}" --release-year ${id3year} --user-url-frame="WXXX:${id3url}" "--add-image=${id3image}:FRONT_COVER:Regichile Logo" "${unsanitizedfilename}"
+  eyeD3 --artist "${id3artist}" --album "${id3album}" --title "${id3title}" --track ${id3track} --track-total ${id3combinetracktotal} --publisher "${id3publisher}" --text-frame="TCOP:${id3copyright}" --release-year ${id3year} --recording-date ${id3recordingdate} --orig-release-date ${id3recordingdate} --release-date ${id3recordingdate} --encoding-date ${id3recordingdate} --tagging-date ${id3recordingdate} --user-url-frame="WXXX:${id3url}" "--add-image=${id3image}:FRONT_COVER:Regichile Logo" "${unsanitizedfilename}"
   elif [ "${addimagetag}" = "no" ]; then
-    eyeD3 --artist "${id3artist}" --album "${id3album}" --title "${id3title}" --track ${id3track} --track-total ${id3combinetracktotal} --publisher "${id3publisher}" --text-frame="TCOP:${id3copyright}" --release-year ${id3year} --user-url-frame="WOAR:${id3url}" "${unsanitizedfilename}"
+    eyeD3 --artist "${id3artist}" --album "${id3album}" --title "${id3title}" --track ${id3track} --track-total ${id3combinetracktotal} --publisher "${id3publisher}" --text-frame="TCOP:${id3copyright}" --release-year ${id3year} --recording-date ${id3recordingdate} --orig-release-date ${id3recordingdate} --release-date ${id3recordingdate} --encoding-date ${id3recordingdate} --tagging-date ${id3recordingdate} --user-url-frame="WOAR:${id3url}" "${unsanitizedfilename}"
   fi
 }
 
@@ -330,8 +333,8 @@ do
     # Go through using dash (-) as the separator.
     IFS=$'-'
     read -a sermonfilenamearraysplitbydashes <<< "$sanitizedfilename"
-    sermonyear=${sermonfilenamearraysplitbydashes[0]}
-    sermonmonth=${sermonfilenamearraysplitbydashes[1]}
+    sermonyear=$(trim ${sermonfilenamearraysplitbydashes[0]})
+    sermonmonth=$(trim ${sermonfilenamearraysplitbydashes[1]})
     sermonday=$(trim ${sermonfilenamearraysplitbydashes[2]})
     sermonartist=$(trim ${sermonfilenamearraysplitbydashes[3]})
     sermontrack=$(trim ${sermonfilenamearraysplitbydashes[4]})
@@ -368,7 +371,10 @@ function combinemp3s(){
 function makecombinemp3id3tags(){
   id3combinetitle="$sermontitle"
   id3combinealbum="${sermonyear}-${sermonmonth}-${sermonday} ${sermonartist}"
+  ## All eyeD3 date options (-Y, --release-year excepted) follow ISO 8601 format. This is
+  ## yyyy-mm-ddThh:mm:ss  The year is required, and each component thereafter is optional.
   id3combineyear=$sermonyear
+  id3combinerecordingdate="${sermonyear}-${sermonmonth}-${sermonday}"
   id3combinetrack="1"
 }
 function renameandtagcombinemp3(){
@@ -384,9 +390,9 @@ function renameandtagcombinemp3(){
   eyeD3 --user-url-frame="WXXX:" "${combinedmp3file}"
   # Check if we are including the image tag or not.
   if [ "${addimagetag}" = "yes" ]; then
-  eyeD3 --artist "${id3combineartist}" --album "${id3combinealbum}" --title "${id3combinetitle}" --track ${id3combinetrack} --track-total ${id3combinetrack} --publisher "${id3publisher}" --text-frame="TCOP:${id3copyright}" --release-year ${id3combineyear} --user-url-frame="WOAR:${id3url}" "--add-image=${id3image}:FRONT_COVER:Regichile Logo" "${combinedmp3file}"
+  eyeD3 --artist "${id3combineartist}" --album "${id3combinealbum}" --title "${id3combinetitle}" --track ${id3combinetrack} --track-total ${id3combinetrack} --publisher "${id3publisher}" --text-frame="TCOP:${id3copyright}" --release-year ${id3combineyear} --recording-date ${id3combinerecordingdate} --orig-release-date ${id3combinerecordingdate} --release-date ${id3combinerecordingdate} --encoding-date ${id3combinerecordingdate} --tagging-date ${id3combinerecordingdate} --user-url-frame="WOAR:${id3url}" "--add-image=${id3image}:FRONT_COVER:Regichile Logo" "${combinedmp3file}"
   elif [ "${addimagetag}" = "no" ]; then
-  eyeD3 --artist "${id3combineartist}" --album "${id3combinealbum}" --title "${id3combinetitle}" --track ${id3combinetrack} --track-total ${id3combinetrack} --publisher "${id3publisher}" --text-frame="TCOP:${id3copyright}" --release-year ${id3combineyear} --user-url-frame="WOAR:${id3url}" "${combinedmp3file}"
+  eyeD3 --artist "${id3combineartist}" --album "${id3combinealbum}" --title "${id3combinetitle}" --track ${id3combinetrack} --track-total ${id3combinetrack} --publisher "${id3publisher}" --text-frame="TCOP:${id3copyright}" --release-year ${id3combineyear} --recording-date ${id3combinerecordingdate} --orig-release-date ${id3combinerecordingdate} --release-date ${id3combinerecordingdate} --encoding-date ${id3combinerecordingdate} --tagging-date ${id3combinerecordingdate} --user-url-frame="WOAR:${id3url}" "${combinedmp3file}"
   fi
 }
 function copyfileforupload(){
