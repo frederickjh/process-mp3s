@@ -15,7 +15,7 @@ eyed3versionok=(0 8 10)
 # Where are the mp3 to process?
 mp3filesfolder="$1"
 # failsafe - fall back to current directory
-[ "${mp3filesfolder}" == "" ] && mp3filesfolder="."
+[ "${mp3filesfolder}" == "" ] && mp3filesfolder="$(pwd)"
 # List of programs this script needs.
 dependencies="mp3wrap eyeD3 sed find"
 # Temporary mp3 wrap filename to use. We will rename it to get rid of the MP3WRAP in the filename.
@@ -405,7 +405,7 @@ finished(){
   echo -e "${yellow}>>> ${NC}$(eval_gettext "The combined church service MP3 file has been placed in")  ${red}${churchservicesfolder}${NC}."
   echo -e "${yellow}>>> ${NC}$(eval_gettext "The sermon and combined service MP3 files for uploading have been copied to") ${red}${uploadsfolder}${NC}."
   echo ""
-  echo -e "${yellow}>>> ${NC}$(eval_gettext "All done processing the MP3 files in")  ${yellow}${mp3filesfolder}${NC}."
+  echo -e "${yellow}>>> ${NC}$(eval_gettext "All done processing the MP3 files in") ${yellow}${mp3filesfolder}${NC}."
   echo -e "${yellow}>>> ${red}$(eval_gettext "Don't forget to upload the created files!")${NC}"
 }
 
