@@ -49,9 +49,9 @@ for dependency in $dependencies;
 }
 function checkeyed3version() {
 # Check the version of eyeD3. We have only tested with version 0.6.18. The next version 0.7.0 breaks the API and may require a rewrite.
-    eyed3version=($(eyeD3 --version | head -n 1| awk '{print $2}'| awk -F "." '{print $1}'' ''{print $2}'' ''{print $3}'))
+    eyed3version=($(eyeD3 --version 2>/dev/null | head -n 1| awk '{print $2}'| awk -F "." '{print $1}'' ''{print $2}'' ''{print $3}'))
 # Newer versions of eyeD3 output the version number to  stderr instead of stdout?! Also only one line with just the version number.
-if [ -z ${eyed3version[1]} -o -z ${eyed3version[0]} ] ; then
+if [ -z "${eyed3version[1]}" -o -z "${eyed3version[0]}" ] ; then
   eyed3version=($(eyeD3 --version 2>&1 | awk -F "." '{print $1}'' ''{print $2}'' ''{print $3}'))
 fi
 if [ ${eyed3version[1]} -gt ${eyed3versionok[1]} -o ${eyed3version[1]} -lt ${eyed3versionok[1]} ]; then
